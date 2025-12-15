@@ -5,6 +5,16 @@ export default function handler(req, res) {
 
     console.log("Received request:", method, body);
 
-    return res.sendStatus(201);
+    if (method === 'POST') {
+        // Process the POST request data here
+        console.log("Processing data:", body);
+
+        return res.sendStatus(201);
+    }
+    else {
+        return res.sendStatus(405); // Method Not Allowed
+    }
+
+
 
 };
