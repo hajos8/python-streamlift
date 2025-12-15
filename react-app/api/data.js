@@ -9,10 +9,10 @@ export default function handler(req, res) {
         // Process the POST request data here
         console.log("Processing data:", body);
 
-        return res.sendStatus(201);
+        return res.status(201).json({ message: 'Data received successfully', data: body });
     }
     else {
-        return res.sendStatus(405); // Method Not Allowed
+        return res.status(405).json({ message: 'Method Not Allowed' }); // Method Not Allowed
     }
 
 
