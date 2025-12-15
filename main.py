@@ -1,5 +1,5 @@
 import streamlit as st
-import time
+import requests
 
 with st.form(key='my_form'):
     col1, col2 = st.columns(2)
@@ -25,7 +25,6 @@ with st.form(key='my_form'):
 
     with st.spinner("Wait for it...", show_time=True):
         if(consent and age >= 18 and name_input and party_input and lie_input):
-            time.sleep(5)
             form_data = {
                 'name': name_input,
                 'age': age,
@@ -34,8 +33,13 @@ with st.form(key='my_form'):
                 'lie': lie_input
             }
 
-            st.success('Form submitted successfully!')
-            st.json(form_data)
+            res = requests.post('https://python-streamlift.vercel.app/api/data', data=form_data)
+
+            if(res.status_code / 100 != 2):
+                st.error('Failed to submit data to the server.')
+            else:
+                st.success('Form submitted successfully!')
+                st.json(form_data)
         else:
             st.error('Please fill out all fields and agree to tell the truth.')
 
